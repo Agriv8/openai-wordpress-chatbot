@@ -76,8 +76,8 @@ jQuery(document).ready(function($) {
         restoreChatInterface();
         trackEvent('chat_restored', { source: 'page_load' });
     } else {
-        // Lazy load popup module
-        loadPopupModule();
+        // Disabled old popup - using new minimizable widget
+        // loadPopupModule();
     }
     
     // Listen for popup events
@@ -100,7 +100,8 @@ jQuery(document).ready(function($) {
         saveChatState();
     });
 
-    // Lazy load popup module
+    // Disabled - using new minimizable widget instead
+    /*
     function loadPopupModule() {
         if (!chatState.popupShown && typeof window.OpenAIChatbotPopup === 'undefined') {
             // Dynamically load popup script
@@ -114,6 +115,7 @@ jQuery(document).ready(function($) {
             document.head.appendChild(script);
         }
     }
+    */
 
     // Show contact form
     function showContactForm() {
