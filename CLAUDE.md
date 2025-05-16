@@ -29,6 +29,7 @@ This WordPress plugin implements an AI-powered chatbot using OpenAI's API for We
 - [docs/DEVELOPER_GUIDE.md](docs/DEVELOPER_GUIDE.md) - Developer reference
 - [docs/SECURITY_GUIDE.md](docs/SECURITY_GUIDE.md) - Security implementation
 - [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) - Problem resolution
+- [docs/WP_DEBUG_GUIDE.md](docs/WP_DEBUG_GUIDE.md) - WordPress debugging guide
 - [docs/RECOMMENDED_UPDATES.md](docs/RECOMMENDED_UPDATES.md) - Authorized improvements
 - [docs/IMPLEMENTATION_TRACKER.md](docs/IMPLEMENTATION_TRACKER.md) - Progress tracking
 - [docs/IMPROVEMENT_IDEAS.md](docs/IMPROVEMENT_IDEAS.md) - Future development ideas

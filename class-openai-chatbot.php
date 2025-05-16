@@ -26,33 +26,62 @@ class OpenAIChatbot {
     private $rate_limit = 20; // requests per hour
     private $rate_window = 3600; // 1 hour in seconds
     private $cache_duration = 300; // 5 minutes cache
+    private $debug_enabled = null;
 
     public function __construct() {
-        if (defined('OPENAI_API_KEY')) {
-            $this->api_key = OPENAI_API_KEY;
-        } else {
-            throw new Exception("API key is not set. Please set the OPENAI_API_KEY in your wp-config.php.");
-        }
-        $this->json_data = $this->loadJsonData(plugin_dir_path(__FILE__) . 'chatbot-data.json');
-        $this->settings = get_option('openai_chatbot_settings', array());
+        try {
+            // Initialize logging
+            $this->init_logging();
+            $this->log('Smart Chatbot initializing...');
+            
+            if (defined('OPENAI_API_KEY')) {
+                $this->api_key = OPENAI_API_KEY;
+                $this->log('API key found');
+            } else {
+                $this->log_error('API key is not set. Please set the OPENAI_API_KEY in your wp-config.php.');
+                return; // Don't throw exception, just return to prevent breaking WP
+            }
+            
+            $json_file = plugin_dir_path(__FILE__) . 'chatbot-data.json';
+            $this->log('Loading JSON data from: ' . $json_file);
+            $this->json_data = $this->loadJsonData($json_file);
+            
+            $this->settings = get_option('openai_chatbot_settings', array());
+            $this->log('Settings loaded');
 
-        add_action('wp_enqueue_scripts', array($this, 'enqueue_chatbot_assets'));
-        add_action('wp_footer', array($this, 'add_chatbot_html'));
-        add_action('wp_ajax_openai_chatbot', array($this, 'ajax_handler'));
-        add_action('wp_ajax_nopriv_openai_chatbot', array($this, 'ajax_handler'));
-        add_action('wp_ajax_openai_chatbot_contact', array($this, 'contact_form_handler'));
-        add_action('wp_ajax_nopriv_openai_chatbot_contact', array($this, 'contact_form_handler'));
+            // Hook actions
+            add_action('wp_enqueue_scripts', array($this, 'enqueue_chatbot_assets'));
+            add_action('wp_footer', array($this, 'add_chatbot_html'));
+            add_action('wp_ajax_openai_chatbot', array($this, 'ajax_handler'));
+            add_action('wp_ajax_nopriv_openai_chatbot', array($this, 'ajax_handler'));
+            add_action('wp_ajax_openai_chatbot_contact', array($this, 'contact_form_handler'));
+            add_action('wp_ajax_nopriv_openai_chatbot_contact', array($this, 'contact_form_handler'));
+            
+            $this->log('Smart Chatbot initialized successfully');
+        } catch (Exception $e) {
+            $this->log_error('Failed to initialize Smart Chatbot: ' . $e->getMessage());
+        }
     }
 
     private function loadJsonData($file_path) {
         if (!file_exists($file_path)) {
-            throw new Exception("JSON file not found: $file_path");
+            $this->log_error("JSON file not found: $file_path");
+            return array(); // Return empty array instead of throwing exception
         }
+        
         $json_content = file_get_contents($file_path);
+        if ($json_content === false) {
+            $this->log_error("Failed to read JSON file: $file_path");
+            return array();
+        }
+        
         $data = json_decode($json_content, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new Exception("Invalid JSON in file: $file_path");
+            $this->log_error("Invalid JSON in file: $file_path - " . json_last_error_msg());
+            return array();
         }
+        
+        $this->log('JSON data loaded successfully from: ' . $file_path);
         return $data;
     }
 
@@ -132,9 +161,12 @@ class OpenAIChatbot {
     }
 
     public function getResponse($user_input, $user_name, $conversation_history = array()) {
+        $this->log_debug("Getting response for input: $user_input from user: $user_name");
+        
         // Check cache first for common questions
         $cached_response = $this->getCachedResponse($user_input);
         if ($cached_response !== false) {
+            $this->log_debug("Using cached response");
             return $cached_response;
         }
         
@@ -249,6 +281,8 @@ Use markdown formatting for emphasis, links, and lists. Use **bold** for importa
             'Authorization: Bearer ' . $this->api_key
         );
 
+        $this->log('Making OpenAI API request');
+        
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
@@ -259,35 +293,55 @@ Use markdown formatting for emphasis, links, and lists. Use **bold** for importa
         $response = curl_exec($ch);
         
         if (curl_errno($ch)) {
-            throw new Exception('Error connecting to OpenAI API: ' . curl_error($ch));
+            $error_msg = 'Error connecting to OpenAI API: ' . curl_error($ch);
+            $this->log_error($error_msg);
+            curl_close($ch);
+            return "I apologize, but I'm having trouble connecting to the AI service. Please try again later or contact us directly at enquiries@web-smart.co.";
         }
         
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        
         curl_close($ch);
+        
+        $this->log_debug("API Response HTTP Code: $http_code");
 
         $result = json_decode($response, true);
         
         if ($http_code != 200) {
-            throw new Exception('Error communicating with OpenAI. HTTP Code: ' . $http_code);
+            $error_msg = 'Error communicating with OpenAI. HTTP Code: ' . $http_code;
+            $this->log_error($error_msg);
+            $this->log_debug('API Response: ' . substr($response, 0, 500));
+            return "I apologize, but I'm experiencing technical difficulties. Please try again later or email enquiries@web-smart.co.";
         }
         
         if (isset($result['error'])) {
-            throw new Exception('OpenAI API error: ' . $result['error']['message']);
+            $error_msg = 'OpenAI API error: ' . $result['error']['message'];
+            $this->log_error($error_msg);
+            return "I apologize, but I encountered an error. Please try again or contact us directly.";
         }
         
+        if (!isset($result['choices'][0]['message']['content'])) {
+            $this->log_error('Invalid response format from OpenAI API');
+            $this->log_debug('Full response: ' . json_encode($result));
+            return "I apologize, but I received an unexpected response. Please try again.";
+        }
+        
+        $this->log_debug('Successfully received API response');
         return $result['choices'][0]['message']['content'];
     }
 
     public function ajax_handler() {
+        $this->log_debug('AJAX handler called');
+        
         // Verify nonce
         if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'openai_chatbot_nonce')) {
+            $this->log_error('AJAX security check failed');
             wp_send_json_error(['error' => 'Security check failed']);
             wp_die();
         }
         
         // Check rate limit
         if (!$this->check_rate_limit()) {
+            $this->log_debug('Rate limit exceeded');
             wp_send_json_error(['error' => 'Rate limit exceeded. Please try again later.']);
             wp_die();
         }
@@ -513,6 +567,55 @@ Use markdown formatting for emphasis, links, and lists. Use **bold** for importa
             $this->cacheResponse($question, $answer);
         }
     }
+    
+    /**
+     * Initialize logging
+     */
+    private function init_logging() {
+        if ($this->debug_enabled === null) {
+            $this->debug_enabled = defined('WP_DEBUG') && WP_DEBUG;
+        }
+    }
+    
+    /**
+     * Log a message
+     */
+    private function log($message, $level = 'info') {
+        if (!$this->debug_enabled) {
+            return;
+        }
+        
+        $log_message = sprintf(
+            '[%s] Smart Chatbot %s: %s',
+            date('Y-m-d H:i:s'),
+            strtoupper($level),
+            $message
+        );
+        
+        error_log($log_message);
+        
+        // Also log to a custom file if WP_DEBUG_LOG is true
+        if (defined('WP_DEBUG_LOG') && WP_DEBUG_LOG) {
+            $log_file = WP_CONTENT_DIR . '/debug-smart-chatbot.log';
+            file_put_contents($log_file, $log_message . PHP_EOL, FILE_APPEND | LOCK_EX);
+        }
+    }
+    
+    /**
+     * Log an error message
+     */
+    private function log_error($message) {
+        $this->log($message, 'error');
+    }
+    
+    /**
+     * Log debug information
+     */
+    private function log_debug($message) {
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            $this->log($message, 'debug');
+        }
+    }
 }
 
 // Include additional functionality
@@ -525,13 +628,28 @@ require_once plugin_dir_path(__FILE__) . 'includes/class-media-handler.php';
 
 // Initialize the plugin
 function run_openai_chatbot() {
-    $chatbot = new OpenAIChatbot();
-    $analytics = new ChatbotAnalytics();
-    
-    // Preload common responses on activation
-    if (!get_option('chatbot_cache_preloaded')) {
-        $chatbot->preloadCommonResponses();
-        update_option('chatbot_cache_preloaded', true);
+    try {
+        error_log('[' . date('Y-m-d H:i:s') . '] Smart Chatbot: Starting initialization');
+        
+        // Check if API key is set first
+        if (!defined('OPENAI_API_KEY')) {
+            error_log('[' . date('Y-m-d H:i:s') . '] Smart Chatbot ERROR: OPENAI_API_KEY not defined in wp-config.php');
+            return; // Don't crash WordPress, just don't load the plugin
+        }
+        
+        $chatbot = new OpenAIChatbot();
+        $analytics = new ChatbotAnalytics();
+        
+        // Preload common responses on activation
+        if (!get_option('chatbot_cache_preloaded')) {
+            $chatbot->preloadCommonResponses();
+            update_option('chatbot_cache_preloaded', true);
+        }
+        
+        error_log('[' . date('Y-m-d H:i:s') . '] Smart Chatbot: Successfully initialized');
+    } catch (Exception $e) {
+        error_log('[' . date('Y-m-d H:i:s') . '] Smart Chatbot ERROR: Failed to initialize - ' . $e->getMessage());
+        error_log('[' . date('Y-m-d H:i:s') . '] Smart Chatbot ERROR: Stack trace - ' . $e->getTraceAsString());
     }
 }
 add_action('plugins_loaded', 'run_openai_chatbot');
