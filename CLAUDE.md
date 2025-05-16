@@ -18,21 +18,22 @@ This WordPress plugin implements an AI-powered chatbot using OpenAI's API for We
 
 ### Documentation
 #### Root Directory Files
-- [/README.md](/Users/agriv8r/Documents/python/Chatbot Ai working may25/README.md) - Project overview
+- [docs/PROJECT_README.md](docs/PROJECT_README.md) - Project overview
 - [/readme.txt](/Users/agriv8r/Documents/python/Chatbot Ai working may25/readme.txt) - WordPress.org format
 
 #### Documentation Folder (/docs)
-- [CLAUDE.md](/Users/agriv8r/Documents/python/Chatbot Ai working may25/docs/CLAUDE.md) - This file - Quick reference
-- [DOCUMENTATION.md](/Users/agriv8r/Documents/python/Chatbot Ai working may25/docs/DOCUMENTATION.md) - Complete technical reference
-- [INSTALLATION_GUIDE.md](/Users/agriv8r/Documents/python/Chatbot Ai working may25/docs/INSTALLATION_GUIDE.md) - Step-by-step setup
-- [USER_GUIDE.md](/Users/agriv8r/Documents/python/Chatbot Ai working may25/docs/USER_GUIDE.md) - End user guide
-- [DEVELOPER_GUIDE.md](/Users/agriv8r/Documents/python/Chatbot Ai working may25/docs/DEVELOPER_GUIDE.md) - Developer reference
-- [SECURITY_GUIDE.md](/Users/agriv8r/Documents/python/Chatbot Ai working may25/docs/SECURITY_GUIDE.md) - Security implementation
-- [TROUBLESHOOTING.md](/Users/agriv8r/Documents/python/Chatbot Ai working may25/docs/TROUBLESHOOTING.md) - Problem resolution
-- [RECOMMENDED_UPDATES.md](/Users/agriv8r/Documents/python/Chatbot Ai working may25/docs/RECOMMENDED_UPDATES.md) - Authorized improvements
-- [IMPLEMENTATION_TRACKER.md](/Users/agriv8r/Documents/python/Chatbot Ai working may25/docs/IMPLEMENTATION_TRACKER.md) - Progress tracking
-- [IMPROVEMENT_IDEAS.md](/Users/agriv8r/Documents/python/Chatbot Ai working may25/docs/IMPROVEMENT_IDEAS.md) - Future development ideas
-- [platform-and-wp-idea.md](/Users/agriv8r/Documents/python/Chatbot Ai working may25/docs/platform-and-wp-idea.md) - SaaS migration plans
+- [CLAUDE.md](CLAUDE.md) - This file - Quick reference
+- [docs/DOCUMENTATION.md](docs/DOCUMENTATION.md) - Complete technical reference
+- [docs/INSTALLATION_GUIDE.md](docs/INSTALLATION_GUIDE.md) - Step-by-step setup
+- [docs/USER_GUIDE.md](docs/USER_GUIDE.md) - End user guide
+- [docs/DEVELOPER_GUIDE.md](docs/DEVELOPER_GUIDE.md) - Developer reference
+- [docs/SECURITY_GUIDE.md](docs/SECURITY_GUIDE.md) - Security implementation
+- [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) - Problem resolution
+- [docs/RECOMMENDED_UPDATES.md](docs/RECOMMENDED_UPDATES.md) - Authorized improvements
+- [docs/IMPLEMENTATION_TRACKER.md](docs/IMPLEMENTATION_TRACKER.md) - Progress tracking
+- [docs/IMPROVEMENT_IDEAS.md](docs/IMPROVEMENT_IDEAS.md) - Future development ideas
+- [docs/platform-and-wp-idea.md](docs/platform-and-wp-idea.md) - SaaS migration plans
+- [docs/GITHUB_INFO.md](docs/GITHUB_INFO.md) - GitHub repository details
 
 ## Admin Page
 

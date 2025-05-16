@@ -73,7 +73,7 @@ openai-chatbot/
 ├── docs/                      # All documentation
 │   ├── PROJECT_README.md      # This file
 │   ├── ADMIN_README.md        # Admin interface guide
-│   ├── CLAUDE.md              # Developer reference
+├── CLAUDE.md                  # Developer reference (root)
 │   ├── DOCUMENTATION.md       # Complete documentation
 │   ├── USER_GUIDE.md          # User documentation
 │   └── ... (other guides)
@@ -117,7 +117,7 @@ For issues or questions:
 - Email: enquiries@web-smart.co
 - Phone: 01462 544738
 - Documentation: See [docs/](./) folder for all documentation
-- Quick Reference: [CLAUDE.md](CLAUDE.md) for development
+- Quick Reference: [../CLAUDE.md](../CLAUDE.md) for development
 - User Guide: [USER_GUIDE.md](USER_GUIDE.md)
 - Installation: [INSTALLATION_GUIDE.md](INSTALLATION_GUIDE.md)
 - Admin Guide: [ADMIN_README.md](ADMIN_README.md)
