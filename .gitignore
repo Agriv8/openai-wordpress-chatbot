@@ -1,0 +1,40 @@
+# WordPress plugin development
+.DS_Store
+*.zip
+*.log
+node_modules/
+npm-debug.log*
+.env
+.env.local
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build files
+/build/
+/dist/
+
+# Cache
+*.cache
+.cache/
+
+# Temporary files
+*.tmp
+*.temp
+/tmp/
+
+# OS generated files
+Thumbs.db
+Desktop.ini
+
+# Backup files
+*.bak
+*.backup
+*_backup/
+
+# Claude settings (keep local)
+.claude/settings.local.json

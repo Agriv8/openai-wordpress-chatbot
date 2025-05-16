@@ -1,0 +1,152 @@
+{
+  "company": "Web Smart Co",
+  "occupation": "Digital services and IT support provider",
+  "services": [
+    "WordPress Web Design",
+    "SEO",
+    "Google Ad Management",
+    "Image Creation",
+    "Content Creation",
+    "Custom WordPress Plugin Development",
+    "Managed IT Services"
+  ],
+  "web_design": {
+    "platform": "WordPress",
+    "editor": "Elementor Pro",
+    "packages": [
+      {
+        "name": "Basic Website Design",
+        "price": "£1,000",
+        "description": "A bespoke WordPress website using Elementor Pro, styled to match your brand with up to 5 responsive pages. Designed for trades and small businesses needing a solid online presence.",
+        "url": "https://web-smart.co/basic-website-design"
+      },
+      {
+        "name": "Advanced Website Design",
+        "price": "Starting at £1,500",
+        "description": "Everything in the Basic package plus professionally written content, branded images, and foundational SEO setup. A smart choice for growing businesses.",
+        "url": "https://web-smart.co/advanced-website-design"
+      },
+      {
+        "name": "Custom Website Build",
+        "price": "Custom Pricing",
+        "description": "For larger budgets or unique requirements. Custom WordPress builds based on scope, with optional integrations and advanced layout needs. Collects full brief before pricing.",
+        "url": "https://web-smart.co/bespoke-web-solutions"
+      }
+    ],
+    "website": "https://web-smart.co/"
+  },
+  "seo_services": {
+    "packages": [
+      {
+        "name": "SEO Foundation Pack",
+        "price": "£1,499 (Special Offer)",
+        "description": "A 3-month starter pack to build strong SEO foundations. Includes detailed audits, keyword focus, content improvements, citations, and more. Ideal for setting the right SEO direction.",
+        "url": "https://web-smart.co/seo-foundation-pack"
+      },
+      {
+        "name": "Basic SEO Monthly",
+        "price": "£350/month",
+        "description": "Ongoing essentials like keyword optimisation, citation listings, backlinks, one blog post per month, and regular review calls.",
+        "url": "https://web-smart.co/basic-seo-monthly"
+      },
+      {
+        "name": "Advanced SEO Monthly",
+        "price": "Starting at £500/month",
+        "description": "Includes everything from Basic SEO plus weekly blogs with images, stronger link-building strategies, and deeper performance analysis.",
+        "url": "https://web-smart.co/advanced-seo-monthly"
+      },
+      {
+        "name": "Super Advanced Custom SEO Monthly",
+        "price": "Starting at £1,000/month",
+        "description": "Up to 30 blogs per month, local service pages, regular site improvements, blog-to-video publishing, YouTube uploads, and Google Ads management included.",
+        "url": "https://web-smart.co/super-advanced-seo-monthly"
+      },
+      {
+        "name": "Google Business Profile Optimisation",
+        "price": "£199",
+        "description": "Setup and optimise your Google Business Profile (formerly GMB) with tracking, Search Console integration, and profile enhancements.",
+        "url": "https://web-smart.co/google-business-profile-optimisation"
+      },
+      {
+        "name": "Google My Business Listing Optimiser",
+        "price": "£199",
+        "description": "Get found in local searches with a fully optimised Google Business Profile. We update missing info, fix inconsistencies, improve location targeting, and boost visibility through posts and review management. Ideal for businesses not ranking in the local map results.",
+        "url": "https://web-smart.co/google-my-business-listing-optimiser/"
+      },
+      {
+        "name": "Custom SEO Package",
+        "price": "Custom Pricing",
+        "description": "For larger budgets or more complex needs. Full requirements are collected before quoting for a custom SEO setup.",
+        "url": "https://web-smart.co/seo-foundation-pack"
+      }
+    ],
+    "website": "https://web-smart.co/"
+  },
+  "image_creation": {
+    "packages": [
+      {
+        "price": "From £100",
+        "description": "Custom-made images for your business. Includes unique, branded visuals with or without text. Packs available from 1 image to high-volume supply.",
+        "url": "https://web-smart.co/ai-image-creation"
+      },
+      {
+        "price": "Custom Pricing",
+        "description": "For larger requests or specialist image sets, pricing is based on volume, use-case, and scope. Full requirements are collected before quoting.",
+        "url": "https://web-smart.co/ai-image-creation"
+      }
+    ],
+    "website": "https://web-smart.co/"
+  },
+  "content_creation": {
+    "pricing": "From £35 per blog or Custom Pricing",
+    "description": "Written content designed to match your brand tone and engage your audience. For high-volume or specialist content, full requirements are collected before quoting. SEO-ready and platform-friendly.",
+    "url": "https://web-smart.co/content-writing"
+  },
+  "google_ads_management": {
+    "pricing": "Custom Pricing",
+    "description": "Includes campaign setup, keyword research, ad copywriting, and performance reviews. For bigger budgets or specific goals, all requirements are gathered before quoting.",
+    "url": "https://web-smart.co/google-ads-management"
+  },
+  "custom_services": {
+    "packages": [
+      {
+        "name": "Bespoke Web Solutions",
+        "price": "Starting at £3,500",
+        "description": "Custom website builds with specific features and integrations. Includes support, design flexibility, and tailored functionality to fit your business model.",
+        "url": "https://web-smart.co/bespoke-web-solutions"
+      },
+      {
+        "name": "Marketing System Integration",
+        "price": "Starting at £2,000",
+        "description": "Integrate automated marketing tools, analytics, and customer targeting systems into your website. Built around your requirements with pricing based on scope.",
+        "url": "https://web-smart.co/ai-marketing-integration"
+      }
+    ]
+  },
+  "web_hosting": {
+    "pricing": "Starting at £150/year",
+    "description": "Fast and secure hosting with daily backups and SSL included. Designed for sites built and managed by Web Smart Co.",
+    "url": "https://web-smart.co/web-hosting"
+  },
+  "managed_it_services": {
+    "description": "Business IT support, ad-hoc remote help, on-site assistance, data recovery, and managed service options.",
+    "website": "https://corsolutions.co.uk/"
+  },
+  "custom_plugins": [
+    {
+      "name": "Smart Chatbot Plugin",
+      "description": "A custom WordPress plugin enabling chat support powered by conversational logic."
+    },
+    {
+      "name": "Auto Blogger Plugin",
+      "description": "Creates and publishes content directly into WordPress using pre-set layouts and styles."
+    }
+  ],
+  "unique_selling_point": "All services include expert guidance throughout, with tools used to support—not replace—professional input.",
+  "about": "Web Smart Co is a UK-based digital services company offering website design, SEO, ad management, and IT support. Focused on clarity, results, and long-term value for businesses of all sizes.",
+  "contact": {
+    "phone": "01462 544738",
+    "email": "enquiries@web-smart.co",
+    "appointment": "https://appt.link/meet-with-pete-gypps/chat-with-pete-R9wR8KNd"
+  }
+}

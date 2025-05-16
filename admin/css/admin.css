@@ -1,0 +1,250 @@
+/**
+ * Admin page styles for OpenAI Chatbot
+ */
+
+.wrap {
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+.card {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+}
+
+.card h2 {
+    margin-top: 0;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.api-status {
+    margin-top: 15px;
+}
+
+#api-status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+#api-status.checking {
+    background: #f0f0f0;
+    color: #666;
+}
+
+#api-status.success {
+    background: #d4edda;
+    color: #155724;
+}
+
+#api-status.error {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+pre {
+    background: #f7f7f7;
+    padding: 15px;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    overflow-x: auto;
+    white-space: pre-wrap;
+}
+
+.service-editor {
+    margin-top: 20px;
+}
+
+.service-editor label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.service-editor textarea {
+    width: 100%;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.ai-controls {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.ai-controls label {
+    margin: 0;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#ai-preview {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#ai-preview h3 {
+    margin-top: 0;
+}
+
+#ai-enhanced-data {
+    background: #fff;
+    border: 1px solid #ddd;
+}
+
+.button {
+    cursor: pointer;
+}
+
+.button:disabled {
+    cursor: not-allowed;
+}
+
+.spinner {
+    display: none;
+    float: none;
+    margin: 0 10px;
+}
+
+.spinner.is-active {
+    display: inline-block;
+}
+
+#save-message {
+    display: inline-block;
+    margin-left: 10px;
+    font-weight: 600;
+}
+
+#save-message.success {
+    color: #46b450;
+}
+
+#save-message.error {
+    color: #dc3232;
+}
+
+.form-table th {
+    width: 200px;
+}
+
+.regular-text {
+    width: 25em;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 782px) {
+    .ai-controls {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .form-table th {
+        display: block;
+        width: auto;
+        padding-bottom: 5px;
+    }
+    
+    .form-table td {
+        display: block;
+        margin-bottom: 15px;
+        padding-left: 0;
+    }
+}
+
+/* Loading states */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 10;
+}
+
+/* Tooltips */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: help;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 300px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -150px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* JSON syntax highlighting */
+.json-syntax {
+    color: #333;
+}
+
+.json-key {
+    color: #881280;
+}
+
+.json-value {
+    color: #1a1aa6;
+}
+
+.json-string {
+    color: #008000;
+}
+
+/* Footer */
+.chatbot-footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #e1e1e1;
+    text-align: center;
+    color: #666;
+}
+
+.chatbot-footer a {
+    color: #5850ec;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.chatbot-footer a:hover {
+    text-decoration: underline;
+}
