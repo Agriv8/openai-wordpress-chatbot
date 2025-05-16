@@ -4,6 +4,10 @@
 
 This guide is for developers who want to extend, customize, or integrate with the Smart Chatbot plugin. It covers the plugin architecture, APIs, hooks, and best practices for development.
 
+### Source Code
+
+GitHub Repository: https://github.com/Agriv8/openai-wordpress-chatbot
+
 ## Architecture Overview
 
 ```

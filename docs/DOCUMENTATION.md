@@ -16,6 +16,10 @@
 
 Smart Chatbot is an advanced WordPress plugin that integrates OpenAI's GPT-4 to provide intelligent customer service, lead generation, and support automation.
 
+### GitHub Repository
+
+Source code available at: https://github.com/Agriv8/openai-wordpress-chatbot
+
 ### Key Features
 - AI-powered conversations using GPT-4
 - Cross-page session persistence
@@ -615,7 +619,19 @@ describe('Chatbot Widget', () => {
 
 ## Changelog
 
-### Version 1.0.0 (Current)
+### Version 4.1 (2025-05-16)
+- Complete admin interface overhaul
+- Added GitHub integration
+- Moved all documentation to /docs folder
+- Added comprehensive development guides
+- Initial commit to GitHub repository
+- Added security enhancements (rate limiting, nonce verification)
+- Cross-page session persistence
+- AI content expansion tool
+- Live API testing
+- Multi-language support
+
+### Version 1.0.0 (Initial Release)
 - Initial release
 - GPT-4 integration
 - Analytics dashboard
@@ -633,6 +649,7 @@ describe('Chatbot Widget', () => {
 ## Support
 
 ### Resources
+- GitHub Repository: https://github.com/Agriv8/openai-wordpress-chatbot
 - Documentation: https://web-smart.co/smart-chatbot/docs
 - Support Forum: https://web-smart.co/support
 - Email: support@web-smart.co
