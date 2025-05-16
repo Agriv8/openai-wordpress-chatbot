@@ -182,7 +182,7 @@ class OpenAIChatbotAdmin {
         }
         
         if (empty($this->api_key)) {
-            wp_send_json_error('API key not configured in wp-config.php');
+            wp_send_json_error('API key not configured - Please add OPENAI_API_KEY to wp-config.php');
             return;
         }
         

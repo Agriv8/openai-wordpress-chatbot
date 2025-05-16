@@ -38,8 +38,8 @@ class OpenAIChatbot {
                 $this->api_key = OPENAI_API_KEY;
                 $this->log('API key found');
             } else {
+                $this->api_key = ''; // Set empty key instead of returning
                 $this->log_error('API key is not set. Please set the OPENAI_API_KEY in your wp-config.php.');
-                return; // Don't throw exception, just return to prevent breaking WP
             }
             
             $json_file = plugin_dir_path(__FILE__) . 'chatbot-data.json';
@@ -161,6 +161,12 @@ class OpenAIChatbot {
     }
 
     public function getResponse($user_input, $user_name, $conversation_history = array()) {
+        // Check if API key is configured
+        if (empty($this->api_key)) {
+            $this->log_error('API key not configured - returning error message');
+            return "I apologize, but the chatbot is not configured properly. Please contact the website administrator.";
+        }
+        
         $this->log_debug("Getting response for input: $user_input from user: $user_name");
         
         // Check cache first for common questions
@@ -631,11 +637,7 @@ function run_openai_chatbot() {
     try {
         error_log('[' . date('Y-m-d H:i:s') . '] Smart Chatbot: Starting initialization');
         
-        // Check if API key is set first
-        if (!defined('OPENAI_API_KEY')) {
-            error_log('[' . date('Y-m-d H:i:s') . '] Smart Chatbot ERROR: OPENAI_API_KEY not defined in wp-config.php');
-            return; // Don't crash WordPress, just don't load the plugin
-        }
+        // Don't check API key here - let the plugin load and show status in admin
         
         $chatbot = new OpenAIChatbot();
         $analytics = new ChatbotAnalytics();

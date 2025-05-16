@@ -52,7 +52,12 @@ jQuery(document).ready(function($) {
             if (response.success) {
                 $status.removeClass('checking error').addClass('success').text('Connected');
             } else {
-                $status.removeClass('checking success').addClass('error').text('Error: ' + response.data);
+                // Check if it's specifically an API key not configured error
+                if (response.data.includes('not configured')) {
+                    $status.removeClass('checking success').addClass('error warning').text('API key not configured');
+                } else {
+                    $status.removeClass('checking success').addClass('error').text('Error: ' + response.data);
+                }
             }
         })
         .fail(function() {
