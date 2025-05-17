@@ -181,8 +181,8 @@ jQuery(document).ready(function($) {
         
         // Collect service options
         $('.service-option').each(function() {
-            const display = $(this).find('input[name*="][display]"]').val();
-            const json_key = $(this).find('input[name*="][json_key]"]').val();
+            const display = $(this).find('input[name*="[display]"]').val();
+            const json_key = $(this).find('input[name*="[json_key]"]').val();
             if (display && json_key) {
                 settings.service_settings.options.push({
                     display: display,

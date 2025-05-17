@@ -12,7 +12,7 @@ License: GPL v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: smart-chatbot
 Domain Path: /languages
-Copyright: © <?php echo date('Y'); ?> Web-Smart.Co
+Copyright: © 2024 Web-Smart.Co
 */
 
 if (!defined('ABSPATH')) {
@@ -372,9 +372,17 @@ Use markdown formatting for emphasis, links, and lists. Use **bold** for importa
             if (json_last_error() !== JSON_ERROR_NONE || !is_array($conversation_history)) {
                 throw new Exception('Invalid conversation history format');
             }
-
-            if (!is_array($conversation_history)) {
-                throw new Exception('Invalid conversation history format');
+            
+            // Validate conversation history structure
+            foreach ($conversation_history as $item) {
+                if (!isset($item['role']) || !isset($item['content'])) {
+                    throw new Exception('Invalid conversation history item structure');
+                }
+                if (!in_array($item['role'], ['user', 'assistant'])) {
+                    throw new Exception('Invalid role in conversation history');
+                }
+                // Sanitize content
+                $item['content'] = sanitize_text_field($item['content']);
             }
 
             $response = $this->getResponse($user_question, $user_name, $conversation_history);

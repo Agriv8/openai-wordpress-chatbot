@@ -585,7 +585,6 @@ jQuery(document).ready(function($) {
     }
     
     // Announce chat state changes
-    const originalMinimize = $('.chatbot-minimize').on('click');
     $('.chatbot-minimize').on('click', function() {
         announceToScreenReader('Chat minimized');
     });
