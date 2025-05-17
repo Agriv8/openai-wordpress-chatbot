@@ -38,29 +38,7 @@ jQuery(document).ready(function($) {
         }
     }).trigger('change');
     
-    // Add service option
-    $('#add-service-option').on('click', function() {
-        const optionCount = $('.service-option').length;
-        const newOption = `
-            <div class="service-option" style="margin-bottom: 10px;">
-                <input type="text" 
-                       name="service_options[${optionCount}][display]" 
-                       placeholder="Display Text"
-                       style="width: 40%;" />
-                <input type="text" 
-                       name="service_options[${optionCount}][json_key]" 
-                       placeholder="JSON Key"
-                       style="width: 30%;" />
-                <button type="button" class="button remove-option">Remove</button>
-            </div>
-        `;
-        $('#service-options').append(newOption);
-    });
-    
-    // Remove service option
-    $(document).on('click', '.remove-option', function() {
-        $(this).closest('.service-option').remove();
-    });
+    // Service options are now fixed at 5, no add/remove needed
     
     // Auto-expand checkbox change
     $('#auto-expand').on('change', function() {
@@ -183,13 +161,25 @@ jQuery(document).ready(function($) {
         $('.service-option').each(function() {
             const display = $(this).find('input[name*="[display]"]').val();
             const json_key = $(this).find('input[name*="[json_key]"]').val();
-            if (display && json_key) {
-                settings.service_settings.options.push({
-                    display: display,
-                    json_key: json_key
-                });
-            }
+            
+            // Always add all 5 options, even if empty
+            settings.service_settings.options.push({
+                display: display || '',
+                json_key: json_key || ''
+            });
         });
+        
+        // Validate at least one service option is filled
+        const hasValidOption = settings.service_settings.options.some(
+            option => option.display && option.json_key
+        );
+        
+        if (!hasValidOption) {
+            $message.removeClass('success').addClass('error').text('At least one service option must be filled completely');
+            $button.prop('disabled', false);
+            $spinner.removeClass('is-active');
+            return;
+        }
         
         // Validate JSON
         try {

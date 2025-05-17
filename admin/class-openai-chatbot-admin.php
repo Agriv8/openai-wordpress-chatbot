@@ -252,34 +252,45 @@ class OpenAIChatbotAdmin {
                     <tr>
                         <th scope="row" style="vertical-align: top;">Service Options</th>
                         <td>
-                            <div id="service-options">
-                                <?php 
-                                $service_options = $service_settings['options'] ?? [
-                                    ['display' => 'Website Design', 'json_key' => 'website_design'],
-                                    ['display' => 'SEO (Search Engine Optimization)', 'json_key' => 'seo'],
-                                    ['display' => 'Website Care Plan', 'json_key' => 'maintenance'],
-                                    ['display' => 'Content Creation', 'json_key' => 'content'],
-                                    ['display' => 'Website Improvements', 'json_key' => 'improvements'],
-                                    ['display' => 'Something else', 'json_key' => 'general']
-                                ];
-                                
-                                foreach ($service_options as $index => $option) : ?>
-                                    <div class="service-option" style="margin-bottom: 10px;">
-                                        <input type="text" 
-                                               name="service_options[<?php echo $index; ?>][display]" 
-                                               value="<?php echo esc_attr($option['display']); ?>" 
-                                               placeholder="Display Text"
-                                               style="width: 40%;" />
-                                        <input type="text" 
-                                               name="service_options[<?php echo $index; ?>][json_key]" 
-                                               value="<?php echo esc_attr($option['json_key']); ?>" 
-                                               placeholder="JSON Key"
-                                               style="width: 30%;" />
-                                        <button type="button" class="button remove-option">Remove</button>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
-                            <button type="button" class="button" id="add-service-option" style="margin-top: 10px;">Add Option</button>
+                            <p class="description">Configure up to 5 service options. At least one must be filled.</p>
+                            <?php 
+                            // Always show exactly 5 option slots
+                            $default_options = [
+                                ['display' => 'Website Design', 'json_key' => 'website_design'],
+                                ['display' => 'SEO (Search Engine Optimization)', 'json_key' => 'seo'],
+                                ['display' => 'Website Care Plan', 'json_key' => 'maintenance'],
+                                ['display' => 'Content Creation', 'json_key' => 'content'],
+                                ['display' => 'Website Improvements', 'json_key' => 'improvements']
+                            ];
+                            
+                            $service_options = $service_settings['options'] ?? $default_options;
+                            
+                            // Ensure we always have 5 slots
+                            while (count($service_options) < 5) {
+                                $service_options[] = ['display' => '', 'json_key' => ''];
+                            }
+                            
+                            for ($i = 0; $i < 5; $i++) : 
+                                $option = $service_options[$i] ?? ['display' => '', 'json_key' => ''];
+                            ?>
+                                <div class="service-option" style="margin-bottom: 15px;">
+                                    <label style="display: inline-block; width: 80px;">Option <?php echo $i + 1; ?>:</label>
+                                    <input type="text" 
+                                           name="service_options[<?php echo $i; ?>][display]" 
+                                           value="<?php echo esc_attr($option['display']); ?>" 
+                                           placeholder="Display Text (e.g., Website Design)"
+                                           style="width: 250px; margin-right: 10px;" />
+                                    <input type="text" 
+                                           name="service_options[<?php echo $i; ?>][json_key]" 
+                                           value="<?php echo esc_attr($option['json_key']); ?>" 
+                                           placeholder="JSON Key (e.g., website_design)"
+                                           style="width: 200px;" />
+                                    <?php if ($i === 0) : ?>
+                                        <span class="required" style="color: red;">*</span>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endfor; ?>
+                            <p class="description">The JSON key should match a section in your service data JSON for the AI to provide relevant information.</p>
                         </td>
                     </tr>
                 </table>

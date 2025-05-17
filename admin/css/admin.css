@@ -48,16 +48,7 @@
     color: #721c24;
 }
 
-pre {
-    background: #f7f7f7;
-    padding: 15px;
-    border: 1px solid #e1e1e1;
-    border-radius: 4px;
-    font-family: 'Courier New', monospace;
-    overflow-x: auto;
-    white-space: pre-wrap;
-}
-
+/* Service editor */
 .service-editor {
     margin-top: 20px;
 }
@@ -70,181 +61,137 @@ pre {
 
 .service-editor textarea {
     width: 100%;
-    font-family: 'Courier New', monospace;
+    font-family: Monaco, Consolas, 'Courier New', monospace;
     font-size: 13px;
-    line-height: 1.5;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
 }
 
+/* Service options styling */
+.service-option {
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #e1e4e8;
+}
+
+.service-option label {
+    font-weight: 600;
+    color: #333;
+}
+
+.service-option input[type="text"] {
+    border: 1px solid #ddd;
+    padding: 6px 10px;
+    border-radius: 3px;
+}
+
+.service-option input[type="text"]:focus {
+    border-color: #0073aa;
+    box-shadow: 0 0 0 1px #0073aa;
+}
+
+.service-option .required {
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+/* AI controls */
 .ai-controls {
-    margin: 15px 0;
+    margin-top: 10px;
     display: flex;
     align-items: center;
-    gap: 20px;
-}
-
-.ai-controls label {
-    margin: 0;
-    font-weight: normal;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    gap: 15px;
 }
 
 #ai-preview {
     margin-top: 20px;
-    padding: 20px;
-    background: #f9f9f9;
-    border: 1px solid #ddd;
+    padding: 15px;
+    background: #f0f8ff;
+    border: 1px solid #b8daff;
     border-radius: 4px;
 }
 
-#ai-preview h3 {
-    margin-top: 0;
-}
-
 #ai-enhanced-data {
-    background: #fff;
-    border: 1px solid #ddd;
+    background: white;
+    border: 1px solid #b8daff;
 }
 
-.button {
-    cursor: pointer;
-}
-
-.button:disabled {
-    cursor: not-allowed;
+/* Save button section */
+.submit {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
 }
 
 .spinner {
-    display: none;
     float: none;
-    margin: 0 10px;
-}
-
-.spinner.is-active {
-    display: inline-block;
+    margin: 0 5px;
 }
 
 #save-message {
-    display: inline-block;
     margin-left: 10px;
     font-weight: 600;
 }
 
 #save-message.success {
-    color: #46b450;
+    color: #155724;
 }
 
 #save-message.error {
-    color: #dc3232;
+    color: #721c24;
 }
 
+/* Footer */
+.chatbot-footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    color: #666;
+}
+
+.chatbot-footer a {
+    color: #0073aa;
+    text-decoration: none;
+}
+
+.chatbot-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Form table adjustments */
 .form-table th {
     width: 200px;
+}
+
+.form-table td {
+    padding: 15px 10px;
 }
 
 .regular-text {
     width: 25em;
 }
 
-/* Responsive adjustments */
-@media screen and (max-width: 782px) {
-    .ai-controls {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .form-table th {
-        display: block;
-        width: auto;
-        padding-bottom: 5px;
-    }
-    
-    .form-table td {
-        display: block;
-        margin-bottom: 15px;
-        padding-left: 0;
-    }
+.large-text {
+    width: 100%;
 }
 
-/* Loading states */
-.loading {
-    opacity: 0.6;
-    pointer-events: none;
+/* JSON editor */
+.code {
+    background: #f5f5f5;
+    font-family: Monaco, Consolas, 'Courier New', monospace;
+    font-size: 13px;
 }
 
-.loading::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(255, 255, 255, 0.8);
-    z-index: 10;
+/* Classic popup settings */
+.classic-popup-settings {
+    display: none;
 }
 
-/* Tooltips */
-.tooltip {
-    position: relative;
-    display: inline-block;
-    cursor: help;
-}
-
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 300px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 10px;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -150px;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-}
-
-/* JSON syntax highlighting */
-.json-syntax {
-    color: #333;
-}
-
-.json-key {
-    color: #881280;
-}
-
-.json-value {
-    color: #1a1aa6;
-}
-
-.json-string {
-    color: #008000;
-}
-
-/* Footer */
-.chatbot-footer {
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid #e1e1e1;
-    text-align: center;
+/* Description text */
+.description {
     color: #666;
-}
-
-.chatbot-footer a {
-    color: #5850ec;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.chatbot-footer a:hover {
-    text-decoration: underline;
+    font-style: italic;
+    margin-top: 4px;
 }

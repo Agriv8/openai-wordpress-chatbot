@@ -200,7 +200,10 @@ jQuery(document).ready(function($) {
         
         let buttonsHtml = '';
         options.forEach(option => {
-            buttonsHtml += `<button class="service-button" data-service="${option.json_key}">${option.display}</button>`;
+            // Only show options that have both display text and json key
+            if (option.display && option.json_key) {
+                buttonsHtml += `<button class="service-button" data-service="${option.json_key}">${option.display}</button>`;
+            }
         });
         
         $('#chat-messages').html(`
