@@ -115,6 +115,176 @@ class OpenAIChatbotAdmin {
                 </form>
             </div>
             
+            <!-- Popup Configuration -->
+            <div class="card">
+                <h2>Popup Configuration</h2>
+                <?php $popup_settings = get_option('openai_chatbot_popup_settings', array()); ?>
+                <table class="form-table">
+                    <tr>
+                        <th scope="row">Popup Style</th>
+                        <td>
+                            <select id="popup-style" name="popup_style">
+                                <option value="minimizable" <?php selected($popup_settings['style'] ?? 'minimizable', 'minimizable'); ?>>Minimizable Widget</option>
+                                <option value="classic" <?php selected($popup_settings['style'] ?? '', 'classic'); ?>>Classic Popup</option>
+                            </select>
+                        </td>
+                    </tr>
+                    
+                    <!-- Classic Popup Settings -->
+                    <tr class="classic-popup-settings">
+                        <th scope="row">Popup Title</th>
+                        <td>
+                            <input type="text" name="popup_title" 
+                                   value="<?php echo esc_attr($popup_settings['title'] ?? '🚀 Ready to Launch?'); ?>" 
+                                   class="regular-text" />
+                        </td>
+                    </tr>
+                    <tr class="classic-popup-settings">
+                        <th scope="row">Popup Description</th>
+                        <td>
+                            <textarea name="popup_description" rows="3" class="large-text"><?php echo esc_textarea($popup_settings['description'] ?? "Let's build you a high-impact website that looks great and performs even better.<br><br>Want to learn how I can help your business grow?"); ?></textarea>
+                        </td>
+                    </tr>
+                    <tr class="classic-popup-settings">
+                        <th scope="row">Chat Button Text</th>
+                        <td>
+                            <input type="text" name="chat_button_text" 
+                                   value="<?php echo esc_attr($popup_settings['chat_button'] ?? 'Ask the AI 🤖'); ?>" 
+                                   class="regular-text" />
+                        </td>
+                    </tr>
+                    <tr class="classic-popup-settings">
+                        <th scope="row">Demo Button Text</th>
+                        <td>
+                            <input type="text" name="demo_button_text" 
+                                   value="<?php echo esc_attr($popup_settings['demo_button'] ?? 'Book a Demo 👨‍💼'); ?>" 
+                                   class="regular-text" />
+                        </td>
+                    </tr>
+                    <tr class="classic-popup-settings">
+                        <th scope="row">Demo Link URL</th>
+                        <td>
+                            <input type="url" name="demo_link" 
+                                   value="<?php echo esc_attr($popup_settings['demo_link'] ?? 'https://appt.link/meet-with-pete-gypps/chat-with-pete-R9wR8KNd-zmg5pZYR'); ?>" 
+                                   class="large-text" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- Contact Form Configuration -->
+            <div class="card">
+                <h2>Contact Form Configuration</h2>
+                <?php $form_settings = get_option('openai_chatbot_form_settings', array()); ?>
+                <table class="form-table">
+                    <tr>
+                        <th scope="row">Form Title</th>
+                        <td>
+                            <input type="text" name="form_title" 
+                                   value="<?php echo esc_attr($form_settings['title'] ?? "Let's get to know each other!"); ?>" 
+                                   class="regular-text" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Name Field Label</th>
+                        <td>
+                            <input type="text" name="name_label" 
+                                   value="<?php echo esc_attr($form_settings['name_label'] ?? "Your Name (required)"); ?>" 
+                                   class="regular-text" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Email Field Label</th>
+                        <td>
+                            <input type="text" name="email_label" 
+                                   value="<?php echo esc_attr($form_settings['email_label'] ?? "Your Email (required)"); ?>" 
+                                   class="regular-text" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Phone Field Label</th>
+                        <td>
+                            <input type="text" name="phone_label" 
+                                   value="<?php echo esc_attr($form_settings['phone_label'] ?? "Your Phone"); ?>" 
+                                   class="regular-text" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Website Field Label</th>
+                        <td>
+                            <input type="text" name="website_label" 
+                                   value="<?php echo esc_attr($form_settings['website_label'] ?? "Your Website"); ?>" 
+                                   class="regular-text" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Submit Button Text</th>
+                        <td>
+                            <input type="text" name="submit_button_text" 
+                                   value="<?php echo esc_attr($form_settings['submit_button'] ?? "Start Chat"); ?>" 
+                                   class="regular-text" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- Service Selection Configuration -->
+            <div class="card">
+                <h2>Service Selection Configuration</h2>
+                <?php $service_settings = get_option('openai_chatbot_service_settings', array()); ?>
+                <table class="form-table">
+                    <tr>
+                        <th scope="row">Selection Title</th>
+                        <td>
+                            <input type="text" name="service_title" 
+                                   value="<?php echo esc_attr($service_settings['title'] ?? "What can I help you with?"); ?>" 
+                                   class="regular-text" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Selection Subtitle</th>
+                        <td>
+                            <input type="text" name="service_subtitle" 
+                                   value="<?php echo esc_attr($service_settings['subtitle'] ?? "Select the service you're most interested in:"); ?>" 
+                                   class="large-text" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" style="vertical-align: top;">Service Options</th>
+                        <td>
+                            <div id="service-options">
+                                <?php 
+                                $service_options = $service_settings['options'] ?? [
+                                    ['display' => 'Website Design', 'json_key' => 'website_design'],
+                                    ['display' => 'SEO (Search Engine Optimization)', 'json_key' => 'seo'],
+                                    ['display' => 'Website Care Plan', 'json_key' => 'maintenance'],
+                                    ['display' => 'Content Creation', 'json_key' => 'content'],
+                                    ['display' => 'Website Improvements', 'json_key' => 'improvements'],
+                                    ['display' => 'Something else', 'json_key' => 'general']
+                                ];
+                                
+                                foreach ($service_options as $index => $option) : ?>
+                                    <div class="service-option" style="margin-bottom: 10px;">
+                                        <input type="text" 
+                                               name="service_options[<?php echo $index; ?>][display]" 
+                                               value="<?php echo esc_attr($option['display']); ?>" 
+                                               placeholder="Display Text"
+                                               style="width: 40%;" />
+                                        <input type="text" 
+                                               name="service_options[<?php echo $index; ?>][json_key]" 
+                                               value="<?php echo esc_attr($option['json_key']); ?>" 
+                                               placeholder="JSON Key"
+                                               style="width: 30%;" />
+                                        <button type="button" class="button remove-option">Remove</button>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                            <button type="button" class="button" id="add-service-option" style="margin-top: 10px;">Add Option</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
             <!-- Service Data Configuration -->
             <div class="card">
                 <h2>Service Data Configuration</h2>
@@ -293,6 +463,52 @@ class OpenAIChatbotAdmin {
         // Save language preference
         if (isset($settings['language'])) {
             update_option('openai_chatbot_language', sanitize_text_field($settings['language']));
+        }
+        
+        // Save popup settings
+        if (isset($settings['popup_settings'])) {
+            $popup_settings = array(
+                'style' => sanitize_text_field($settings['popup_settings']['style']),
+                'title' => sanitize_text_field($settings['popup_settings']['title']),
+                'description' => wp_kses_post($settings['popup_settings']['description']),
+                'chat_button' => sanitize_text_field($settings['popup_settings']['chat_button']),
+                'demo_button' => sanitize_text_field($settings['popup_settings']['demo_button']),
+                'demo_link' => esc_url_raw($settings['popup_settings']['demo_link'])
+            );
+            update_option('openai_chatbot_popup_settings', $popup_settings);
+        }
+        
+        // Save form settings
+        if (isset($settings['form_settings'])) {
+            $form_settings = array(
+                'title' => sanitize_text_field($settings['form_settings']['title']),
+                'name_label' => sanitize_text_field($settings['form_settings']['name_label']),
+                'email_label' => sanitize_text_field($settings['form_settings']['email_label']),
+                'phone_label' => sanitize_text_field($settings['form_settings']['phone_label']),
+                'website_label' => sanitize_text_field($settings['form_settings']['website_label']),
+                'submit_button' => sanitize_text_field($settings['form_settings']['submit_button'])
+            );
+            update_option('openai_chatbot_form_settings', $form_settings);
+        }
+        
+        // Save service selection settings
+        if (isset($settings['service_settings'])) {
+            $service_settings = array(
+                'title' => sanitize_text_field($settings['service_settings']['title']),
+                'subtitle' => sanitize_text_field($settings['service_settings']['subtitle']),
+                'options' => array()
+            );
+            
+            if (isset($settings['service_settings']['options'])) {
+                foreach ($settings['service_settings']['options'] as $option) {
+                    $service_settings['options'][] = array(
+                        'display' => sanitize_text_field($option['display']),
+                        'json_key' => sanitize_key($option['json_key'])
+                    );
+                }
+            }
+            
+            update_option('openai_chatbot_service_settings', $service_settings);
         }
         
         // Save service data

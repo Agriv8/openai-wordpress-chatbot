@@ -50,10 +50,10 @@
                         <button class="popup-minimize" aria-label="Minimize popup">−</button>
                         <button class="popup-close" aria-label="Close popup">×</button>
                     </div>
-                    <h2 class="popup-title">🚀 Ready to Launch?</h2>
-                    <p class="popup-description">Let's build you a high-impact website that looks great and performs even better.<br><br>Want to learn how I can help your business grow?</p>
-                    <button id="ask-ai" class="popup-button">Ask the AI 🤖</button>
-                    <a href="https://appt.link/meet-with-pete-gypps/chat-with-pete-R9wR8KNd-zmg5pZYR" target="_blank" rel="noopener" class="popup-button">Book a Demo 👨‍💼</a>
+                    <h2 class="popup-title">${openai_chatbot_data.popup_settings.title || '🚀 Ready to Launch?'}</h2>
+                    <p class="popup-description">${openai_chatbot_data.popup_settings.description || "Let's build you a high-impact website that looks great and performs even better.<br><br>Want to learn how I can help your business grow?"}</p>
+                    <button id="ask-ai" class="popup-button">${openai_chatbot_data.popup_settings.chat_button || 'Ask the AI 🤖'}</button>
+                    <a href="${openai_chatbot_data.popup_settings.demo_link || 'https://appt.link/meet-with-pete-gypps/chat-with-pete-R9wR8KNd-zmg5pZYR'}" target="_blank" rel="noopener" class="popup-button">${openai_chatbot_data.popup_settings.demo_button || 'Book a Demo 👨‍💼'}</a>
                     <div class="popup-footer">
                         <a href="https://web-smart.co/privacy-policy/" class="privacy-link">Privacy policy</a>
                     </div>

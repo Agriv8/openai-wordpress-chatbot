@@ -76,8 +76,12 @@ jQuery(document).ready(function($) {
         restoreChatInterface();
         trackEvent('chat_restored', { source: 'page_load' });
     } else {
-        // Disabled old popup - using new minimizable widget
-        // loadPopupModule();
+        // Check which popup style to use
+        const useClassicPopup = openai_chatbot_data.popup_style === 'classic';
+        if (useClassicPopup) {
+            loadPopupModule();
+        }
+        // Otherwise the new widget will be shown automatically
     }
     
     // Listen for popup events
@@ -100,8 +104,7 @@ jQuery(document).ready(function($) {
         saveChatState();
     });
 
-    // Disabled - using new minimizable widget instead
-    /*
+    // Lazy load popup module
     function loadPopupModule() {
         if (!chatState.popupShown && typeof window.OpenAIChatbotPopup === 'undefined') {
             // Dynamically load popup script
@@ -115,17 +118,18 @@ jQuery(document).ready(function($) {
             document.head.appendChild(script);
         }
     }
-    */
 
     // Show contact form
     function showContactForm() {
+        const formSettings = openai_chatbot_data.form_settings || {};
         $('#chat-messages').html(`
+            <h3>${formSettings.title || "Let's get to know each other!"}</h3>
             <form id="contact-form" class="contact-form">
-                <input type="text" id="name" placeholder="Your Name" required>
-                <input type="email" id="email" placeholder="Your Email" required>
-                <input type="tel" id="phone" placeholder="Your Phone Number" required>
-                <input type="text" id="website" placeholder="Your Website (if you have one)">
-                <button type="submit">Start Chat</button>
+                <input type="text" id="name" placeholder="${formSettings.name_label || 'Your Name'}" required>
+                <input type="email" id="email" placeholder="${formSettings.email_label || 'Your Email'}" required>
+                <input type="tel" id="phone" placeholder="${formSettings.phone_label || 'Your Phone Number'}" required>
+                <input type="text" id="website" placeholder="${formSettings.website_label || 'Your Website (if you have one)'}">
+                <button type="submit">${formSettings.submit_button || 'Start Chat'}</button>
             </form>
         `);
 
@@ -184,16 +188,27 @@ jQuery(document).ready(function($) {
 
     // Show service selection
     function showServiceSelection() {
+        const serviceSettings = openai_chatbot_data.service_settings || {};
+        const options = serviceSettings.options || [
+            {display: 'Website Design', json_key: 'website_design'},
+            {display: 'SEO (Search Engine Optimization)', json_key: 'seo'},
+            {display: 'Website Care Plan', json_key: 'maintenance'},
+            {display: 'Content Creation', json_key: 'content'},
+            {display: 'Website Improvements', json_key: 'improvements'},
+            {display: 'Something else', json_key: 'general'}
+        ];
+        
+        let buttonsHtml = '';
+        options.forEach(option => {
+            buttonsHtml += `<button class="service-button" data-service="${option.json_key}">${option.display}</button>`;
+        });
+        
         $('#chat-messages').html(`
             <div class="service-selection">
-                <h3 class="service-title">Which service are you interested in?</h3>
+                <h3 class="service-title">${serviceSettings.title || 'What can I help you with?'}</h3>
+                <p class="service-subtitle">${serviceSettings.subtitle || 'Select the service you\'re most interested in:'}</p>
                 <div class="service-options">
-                    <button class="service-button" data-service="all-services">ALL WEB SERVICES</button>
-                    <button class="service-button" data-service="web-design">WEB DESIGN</button>
-                    <button class="service-button" data-service="marketing">MARKETING</button>
-                    <button class="service-button" data-service="content-writing">CONTENT WRITING</button>
-                    <button class="service-button" data-service="ai-content">AI CONTENT CREATION</button>
-                    <button class="service-button" data-service="other">SOMETHING ELSE</button>
+                    ${buttonsHtml}
                 </div>
             </div>
         `);

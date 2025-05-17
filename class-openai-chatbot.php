@@ -103,11 +103,20 @@ class OpenAIChatbot {
             true
         );
 
+        // Get all settings
+        $popup_settings = get_option('openai_chatbot_popup_settings', array());
+        $form_settings = get_option('openai_chatbot_form_settings', array());
+        $service_settings = get_option('openai_chatbot_service_settings', array());
+        
         // Localize script
         wp_localize_script('openai-chatbot-script', 'openai_chatbot_data', array(
             'ajax_url' => admin_url('admin-ajax.php'),
             'plugin_url' => plugin_dir_url(__FILE__),
-            'nonce' => wp_create_nonce('openai_chatbot_nonce')
+            'nonce' => wp_create_nonce('openai_chatbot_nonce'),
+            'popup_style' => $popup_settings['style'] ?? 'minimizable',
+            'popup_settings' => $popup_settings,
+            'form_settings' => $form_settings,
+            'service_settings' => $service_settings
         ));
         
         // Register popup script (not enqueued, loaded on demand)

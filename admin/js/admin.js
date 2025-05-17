@@ -29,6 +29,39 @@ jQuery(document).ready(function($) {
         saveSettings();
     });
     
+    // Toggle popup settings visibility
+    $('#popup-style').on('change', function() {
+        if ($(this).val() === 'classic') {
+            $('.classic-popup-settings').show();
+        } else {
+            $('.classic-popup-settings').hide();
+        }
+    }).trigger('change');
+    
+    // Add service option
+    $('#add-service-option').on('click', function() {
+        const optionCount = $('.service-option').length;
+        const newOption = `
+            <div class="service-option" style="margin-bottom: 10px;">
+                <input type="text" 
+                       name="service_options[${optionCount}][display]" 
+                       placeholder="Display Text"
+                       style="width: 40%;" />
+                <input type="text" 
+                       name="service_options[${optionCount}][json_key]" 
+                       placeholder="JSON Key"
+                       style="width: 30%;" />
+                <button type="button" class="button remove-option">Remove</button>
+            </div>
+        `;
+        $('#service-options').append(newOption);
+    });
+    
+    // Remove service option
+    $(document).on('click', '.remove-option', function() {
+        $(this).closest('.service-option').remove();
+    });
+    
     // Auto-expand checkbox change
     $('#auto-expand').on('change', function() {
         if ($(this).is(':checked')) {
@@ -116,8 +149,47 @@ jQuery(document).ready(function($) {
             company: $('#company-name').val(),
             language: $('#language').val(),
             email_recipient: $('#email-recipient').val(),
-            service_data: $('#service-data').val()
+            service_data: $('#service-data').val(),
+            
+            // Popup settings
+            popup_settings: {
+                style: $('#popup-style').val(),
+                title: $('input[name="popup_title"]').val(),
+                description: $('textarea[name="popup_description"]').val(),
+                chat_button: $('input[name="chat_button_text"]').val(),
+                demo_button: $('input[name="demo_button_text"]').val(),
+                demo_link: $('input[name="demo_link"]').val()
+            },
+            
+            // Form settings
+            form_settings: {
+                title: $('input[name="form_title"]').val(),
+                name_label: $('input[name="name_label"]').val(),
+                email_label: $('input[name="email_label"]').val(),
+                phone_label: $('input[name="phone_label"]').val(),
+                website_label: $('input[name="website_label"]').val(),
+                submit_button: $('input[name="submit_button_text"]').val()
+            },
+            
+            // Service settings
+            service_settings: {
+                title: $('input[name="service_title"]').val(),
+                subtitle: $('input[name="service_subtitle"]').val(),
+                options: []
+            }
         };
+        
+        // Collect service options
+        $('.service-option').each(function() {
+            const display = $(this).find('input[name*="][display]"]').val();
+            const json_key = $(this).find('input[name*="][json_key]"]').val();
+            if (display && json_key) {
+                settings.service_settings.options.push({
+                    display: display,
+                    json_key: json_key
+                });
+            }
+        });
         
         // Validate JSON
         try {
