@@ -125,7 +125,7 @@ class OpenAIChatbotAdmin {
                         <td>
                             <select id="popup-style" name="popup_style">
                                 <option value="minimizable" <?php selected($popup_settings['style'] ?? 'minimizable', 'minimizable'); ?>>Minimizable Widget</option>
-                                <option value="classic" <?php selected($popup_settings['style'] ?? '', 'classic'); ?>>Classic Popup</option>
+                                <option value="classic" <?php selected($popup_settings['style'] ?? 'minimizable', 'classic'); ?>>Classic Popup</option>
                             </select>
                         </td>
                     </tr>

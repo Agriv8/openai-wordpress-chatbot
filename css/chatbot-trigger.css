@@ -1,0 +1,73 @@
+/* Chat Trigger Button - Shows when chat is closed */
+.chatbot-trigger {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #4f46e5;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 9999;
+}
+
+.chatbot-trigger:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.chatbot-trigger svg {
+    width: 30px;
+    height: 30px;
+    fill: white;
+}
+
+/* Hide trigger when chat is open */
+#openai-chatbot.open ~ .chatbot-trigger,
+#openai-chatbot:not(.closed) ~ .chatbot-trigger {
+    display: none;
+}
+
+/* Show trigger only when chat is closed */
+#openai-chatbot.closed ~ .chatbot-trigger {
+    display: flex;
+}
+
+/* Pulse animation to draw attention */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    50% {
+        box-shadow: 0 4px 20px rgba(79, 70, 229, 0.4);
+    }
+    100% {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+}
+
+.chatbot-trigger.pulse {
+    animation: pulse 2s infinite;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .chatbot-trigger {
+        width: 50px;
+        height: 50px;
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .chatbot-trigger svg {
+        width: 25px;
+        height: 25px;
+    }
+}

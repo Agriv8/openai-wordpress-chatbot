@@ -76,12 +76,14 @@ jQuery(document).ready(function($) {
         restoreChatInterface();
         trackEvent('chat_restored', { source: 'page_load' });
     } else {
-        // Check which popup style to use
-        const useClassicPopup = openai_chatbot_data.popup_style === 'classic';
-        if (useClassicPopup) {
+        // Check which popup style to use (default to minimizable)
+        const popupStyle = openai_chatbot_data.popup_style || 'minimizable';
+        
+        if (popupStyle === 'classic') {
+            // Only load the old popup if explicitly set to classic
             loadPopupModule();
         }
-        // Otherwise the new widget will be shown automatically
+        // Otherwise the minimizable widget is already loaded via CSS/HTML
     }
     
     // Listen for popup events

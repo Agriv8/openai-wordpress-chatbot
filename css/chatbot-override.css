@@ -1,0 +1,41 @@
+/* Override to prevent classic popup from showing by default */
+.popup-menu {
+    display: none !important;
+}
+
+/* Only show classic popup when explicitly enabled */
+body.chatbot-classic-popup .popup-menu {
+    display: block !important;
+}
+
+/* Ensure chatbot starts closed */
+#openai-chatbot {
+    display: none;
+}
+
+#openai-chatbot.open {
+    display: block;
+}
+
+/* Always show trigger button when chat is closed */
+.chatbot-trigger {
+    display: flex !important;
+}
+
+#openai-chatbot.open ~ .chatbot-trigger {
+    display: none !important;
+}
+
+/* Ensure minimizable widget styling */
+#openai-chatbot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    z-index: 9998;
+    transition: all 0.3s ease;
+}

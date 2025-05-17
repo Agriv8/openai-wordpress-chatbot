@@ -93,6 +93,22 @@ class OpenAIChatbot {
             array(),
             filemtime(plugin_dir_path(__FILE__) . 'css/openai-chatbot.css')
         );
+        
+        // Trigger button styles
+        wp_enqueue_style(
+            'chatbot-trigger',
+            plugin_dir_url(__FILE__) . 'css/chatbot-trigger.css',
+            array(),
+            filemtime(plugin_dir_path(__FILE__) . 'css/chatbot-trigger.css')
+        );
+        
+        // Override styles to prevent popup
+        wp_enqueue_style(
+            'chatbot-override',
+            plugin_dir_url(__FILE__) . 'css/chatbot-override.css',
+            array('openai-chatbot-styles'),
+            filemtime(plugin_dir_path(__FILE__) . 'css/chatbot-override.css')
+        );
 
         // Main chat script
         wp_enqueue_script(
@@ -103,8 +119,10 @@ class OpenAIChatbot {
             true
         );
 
-        // Get all settings
-        $popup_settings = get_option('openai_chatbot_popup_settings', array());
+        // Get all settings with defaults
+        $popup_settings = get_option('openai_chatbot_popup_settings', array(
+            'style' => 'minimizable' // Default to minimizable widget
+        ));
         $form_settings = get_option('openai_chatbot_form_settings', array());
         $service_settings = get_option('openai_chatbot_service_settings', array());
         
@@ -118,6 +136,14 @@ class OpenAIChatbot {
             'form_settings' => $form_settings,
             'service_settings' => $service_settings
         ));
+        
+        // Add body class for classic popup if needed
+        if (($popup_settings['style'] ?? 'minimizable') === 'classic') {
+            add_filter('body_class', function($classes) {
+                $classes[] = 'chatbot-classic-popup';
+                return $classes;
+            });
+        }
         
         // Register popup script (not enqueued, loaded on demand)
         wp_register_script(
@@ -165,7 +191,13 @@ class OpenAIChatbot {
                     <button class="chatbot-button rate-chat" id="rate-chat" style="display:none;" aria-label="Rate this chat" tabindex="0">Rate this Chat</button>
                 </div>
             </div>
-    
+        </div>
+        <!-- Chat trigger button -->
+        <button class="chatbot-trigger" onclick="document.getElementById('openai-chatbot').classList.remove('closed'); document.getElementById('openai-chatbot').classList.add('open');">
+            <svg viewBox="0 0 24 24">
+                <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+            </svg>
+        </button>
         <?php
     }
 
