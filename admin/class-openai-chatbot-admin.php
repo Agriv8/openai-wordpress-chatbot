@@ -285,6 +285,70 @@ class OpenAIChatbotAdmin {
                 </table>
             </div>
             
+            <!-- WhatsApp Integration -->
+            <div class="card">
+                <h2>WhatsApp Integration</h2>
+                <?php $whatsapp_settings = get_option('openai_chatbot_whatsapp_settings', array()); ?>
+                <table class="form-table">
+                    <tr>
+                        <th scope="row">Enable WhatsApp Integration</th>
+                        <td>
+                            <label>
+                                <input type="checkbox" name="whatsapp_enabled" 
+                                       <?php checked($whatsapp_settings['enabled'] ?? false); ?> />
+                                Enable live agent handoff via WhatsApp
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">WhatsApp Business Number</th>
+                        <td>
+                            <input type="tel" name="whatsapp_number" 
+                                   value="<?php echo esc_attr($whatsapp_settings['phone_number'] ?? ''); ?>" 
+                                   placeholder="+1234567890"
+                                   class="regular-text" />
+                            <p class="description">Your WhatsApp Business number with country code</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">WhatsApp API Key</th>
+                        <td>
+                            <input type="password" name="whatsapp_api_key" 
+                                   value="<?php echo esc_attr($whatsapp_settings['api_key'] ?? ''); ?>" 
+                                   class="regular-text" />
+                            <p class="description">Your WhatsApp Business API key</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Agent Availability Hours</th>
+                        <td>
+                            <select name="agent_hours">
+                                <option value="9-17" <?php selected($whatsapp_settings['agent_hours'] ?? '9-17', '9-17'); ?>>9 AM - 5 PM</option>
+                                <option value="8-18" <?php selected($whatsapp_settings['agent_hours'] ?? '', '8-18'); ?>>8 AM - 6 PM</option>
+                                <option value="24-24" <?php selected($whatsapp_settings['agent_hours'] ?? '', '24-24'); ?>>24/7</option>
+                                <option value="custom" <?php selected($whatsapp_settings['agent_hours'] ?? '', 'custom'); ?>>Custom</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="custom-hours" style="<?php echo ($whatsapp_settings['agent_hours'] ?? '') === 'custom' ? '' : 'display:none;'; ?>">
+                        <th scope="row">Custom Hours</th>
+                        <td>
+                            <input type="time" name="custom_start" 
+                                   value="<?php echo esc_attr($whatsapp_settings['custom_start'] ?? '09:00'); ?>" />
+                            to
+                            <input type="time" name="custom_end" 
+                                   value="<?php echo esc_attr($whatsapp_settings['custom_end'] ?? '17:00'); ?>" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Offline Message</th>
+                        <td>
+                            <textarea name="offline_message" class="large-text" rows="3"><?php echo esc_textarea($whatsapp_settings['offline_message'] ?? 'Our agents are currently offline. Please leave a message or schedule a callback.'); ?></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
             <!-- Service Data Configuration -->
             <div class="card">
                 <h2>Service Data Configuration</h2>
