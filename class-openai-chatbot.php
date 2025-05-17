@@ -3,7 +3,7 @@
 Plugin Name: Smart Chatbot
 Plugin URI: https://web-smart.co/smart-chatbot
 Description: Advanced AI-powered chatbot for WordPress using OpenAI GPT-4. Boost customer engagement with intelligent conversations.
-Version: 1.0.0
+Version: 4.1.0
 Requires at least: 5.0
 Requires PHP: 7.4
 Author: Web-Smart.Co

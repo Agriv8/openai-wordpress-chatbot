@@ -49,6 +49,11 @@ This WordPress plugin implements an AI-powered chatbot using OpenAI's API for We
 - AI-powered content generator for service data
 - JSON data editor with preview
 - Live API status checker
+- Popup style selection (minimizable/classic)
+- Contact form label customization
+- Service selection customization
+- Analytics dashboard (submenu)
+- Media upload support
 
 ### Configuration Options
 - Company name input

@@ -619,7 +619,7 @@ describe('Chatbot Widget', () => {
 
 ## Changelog
 
-### Version 4.1 (2025-05-16)
+### Version 4.1.0 (2024-05-16)
 - Complete admin interface overhaul
 - Added GitHub integration
 - Moved all documentation to /docs folder
@@ -630,8 +630,14 @@ describe('Chatbot Widget', () => {
 - AI content expansion tool
 - Live API testing
 - Multi-language support
+- Popup style configuration (minimizable vs classic)
+- Contact form customization
+- Service selection customization
+- Analytics system implementation
+- Media upload support
+- Proactive engagement features
 
-### Version 1.0.0 (Initial Release)
+### Version 1.0.0 (2024-01-01)
 - Initial release
 - GPT-4 integration
 - Analytics dashboard
